@@ -558,7 +558,7 @@
     <!-- 引入Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // 模块加载函数
+        // 模块加载函数 - 移除了自动滚动到顶部的功能
         function loadModule(moduleId) {
             // 隐藏所有模块
             $('.module').removeClass('active');
@@ -567,8 +567,7 @@
             // 更新导航状态
             $('.nav-link').removeClass('active');
             $('.nav-link[data-module="' + moduleId + '"]').addClass('active');
-            // 滚动到页面顶部
-            $('html, body').animate({ scrollTop: 0 }, 300);
+            // 已删除自动向上滑动的代码
         }
 
         // 导航点击事件
