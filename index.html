@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宏晟达国际科技（西安）有限公司 - 半导体BU</title>
+    <!-- 引入外部资源 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <style>
+        /* 基础样式 */
+        :root {
+            --primary-color: #165DFF;
+            --secondary-color: #0E2F56;
+            --light-color: #F5F7FA;
+            --dark-color: #333333;
+        }
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            color: var(--dark-color);
+            background-color: #fff;
+            line-height: 1.6;
+        }
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        .section-title::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        .section-padding {
+            padding: 80px 0;
+        }
+        .bg-light-custom {
+            background-color: var(--light-color);
+        }
+        .module-container {
+            min-height: 500px;
+            padding: 40px 0;
+        }
+        .module {
+            display: none;
+        }
+        .module.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background-color: #fff !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+        .navbar-nav .nav-link {
+            color: var(--dark-color) !important;
+            margin: 0 10px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+        
+        /* 业务卡片样式 */
+        .business-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .business-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        /* 团队成员样式 */
+        .team-member {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .team-member .team-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+        .team-member .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 合作伙伴样式 */
+        .partner-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .partner-item {
+            background-color: #fff;
+            border-radius: 6px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* 流程步骤样式 */
+        .process-step {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 40px;
+        }
+        .process-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        /* 底部样式 */
+        .footer {
+            background-color: var(--secondary-color);
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #fff;
+        }
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fa fa-microchip mr-2"></i>宏晟达国际科技
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-module="company-intro" href="javascript:;">公司简介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-module="semiconductor-bu" href="javascript:;">半导体BU</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-module="partners" href="javascript:;">合作伙伴</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-module="business" href="javascript:;">主营业务</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-module="delivery" href="javascript:;">交付流程</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-module="vision" href="javascript:;">规划愿景</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-module="contact" href="javascript:;">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--  Banner区域 -->
+    <section class="banner" style="
+        background: linear-gradient(rgba(14,47,86,0.8), rgba(14,47,86,0.8)), 
+        url('https://picsum.photos/id/180/1920/600') center center no-repeat;
+        background-size: cover; color: #fff; padding: 120px 0; text-align: center;
+    ">
+        <div class="container">
+            <h1>宏晟达国际科技（西安）有限公司</h1>
+            <p class="slogan">奋/勇/拼/搏 追/求/梦/想</p>
+            <p>专注半导体全产业链服务，打造国际化科技贸易融合平台</p>
+            <a href="javascript:loadModule('contact')" class="btn btn-primary btn-lg">咨询合作</a>
+        </div>
+    </section>
+
+    <!-- 模块容器 -->
+    <div class="module-container container">
+        <!-- 公司简介模块 -->
+        <div id="company-intro" class="module active">
+            <h2 class="section-title">公司简介</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-4">
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-weight: 600;">基本信息</h3>
+                        <p>宏晟达国际科技（西安）有限公司成立于2022年，位于陕西省西安市高新技术产业开发区西安电子科技大学国家大学科技园内，是一家国际化的科技贸易融合型企业。</p>
+                        <p>公司以BU群形式运营，主营业务涵盖高科技领域技术研发、技术服务和国际贸易，联合中白航天高新技术产业研发中心有限公司（中国国有企业境外公司）等机构，形成立体化国际服务网络。</p>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-weight: 600;">核心定位</h3>
+                        <p>聚焦电子信息、新能源、石油化工、先进材料和高端机械等板块资源优势，充分发挥深厚的国际贸易经验，畅通采购、物流及金融渠道，为客户提供高品质产品和专业服务。</p>
+                        <p>已陆续成为国内外多家半导体企业的战略合作伙伴，多次为Integral、belaz、MA3等企业解决供应链受限困扰。</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px; font-weight: 600;">主营业务板块</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="business-card p-4">
+                                <i class="fa fa-microchip"></i>
+                                <h5>半导体全产业链服务</h5>
+                                <p>提供先进半导体技术、研发创新平台、设备与材料</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="business-card p-4">
+                                <i class="fa fa-flask"></i>
+                                <h5>先进材料研发</h5>
+                                <p>专注新型材料、功能性材料研发，服务创新解决方案</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="business-card p-4">
+                                <i class="fa fa-leaf"></i>
+                                <h5>新能源领域</h5>
+                                <p>太阳能、风能、氢能、生物能等技术研发与应用</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="business-card p-4">
+                                <i class="fa fa-industry"></i>
+                                <h5>石油化工设备</h5>
+                                <p>供应设备并提供技术支持，提升客户生产效率</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 半导体BU模块 -->
+        <div id="semiconductor-bu" class="module">
+            <h2 class="section-title">半导体BU简介</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-4">
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-weight: 600;">BU定位与业务范围</h3>
+                        <p>宏晟达半导体BU专注半导体及泛半导体全产业模块经营，现有专兼职职工130余人，核心业务涵盖：</p>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item"><i class="fa fa-check text-primary mr-2"></i>技术服务、技术咨询、技术转让</li>
+                            <li class="list-group-item"><i class="fa fa-check text-primary mr-2"></i>产业孵化、设备贸易、设备维修再制造</li>
+                            <li class="list-group-item"><i class="fa fa-check text-primary mr-2"></i>物料贸易、物料研发、代理采购</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px; font-weight: 600;">核心团队</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="team-member">
+                                <div class="team-img">
+                                    <img src="https://picsum.photos/id/1005/150/150" alt="技术顾问-石先生">
+                                </div>
+                                <h5>石先生 - 技术顾问</h5>
+                                <p>加拿大籍华人科学家<br>主导建设成都海威华芯<br>从事下一代LED研发</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="team-member">
+                                <div class="team-img">
+                                    <img src="https://picsum.photos/id/1012/150/150" alt="技术顾问-赵先生">
+                                </div>
+                                <h5>赵先生 - 技术顾问</h5>
+                                <p>半导体行业30年经验<br>曾就职于HW，主导SiC体系建设</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 合作伙伴模块 -->
+        <div id="partners" class="module">
+            <h2 class="section-title">资源与合作伙伴</h2>
+            <p class="text-center text-muted mb-5">半导体领域全渠道保障体系，与多家知名企业、高校及科研机构建立战略合作伙伴关系</p>
+            
+            <div class="mb-5">
+                <h4 style="color: var(--secondary-color); margin-bottom: 20px; font-weight: 600;">合作重点平台</h4>
+                <div class="partner-list">
+                    <div class="partner-item">西安电子科技大学</div>
+                    <div class="partner-item">OEIC</div>
+                    <div class="partner-item">湖北九峰山实验室</div>
+                    <div class="partner-item">先导科技集团</div>
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <h4 style="color: var(--secondary-color); margin-bottom: 20px; font-weight: 600;">合作核心设备厂</h4>
+                <div class="partner-list">
+                    <div class="partner-item">北方华创</div>
+                    <div class="partner-item">拓荆科技</div>
+                    <div class="partner-item">中微半导体</div>
+                    <div class="partner-item">CETC45所</div>
+                    <div class="partner-item">CETC48所</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主营业务模块 -->
+        <div id="business" class="module">
+            <h2 class="section-title">主要业务介绍</h2>
+            
+            <div class="row mb-5">
+                <div class="col-lg-4">
+                    <div class="business-card h-100">
+                        <i class="fa fa-comments"></i>
+                        <h4>技术咨询及技术服务</h4>
+                        <p>以专业化视角和国际化资源体系，为客户提供定制化解决方案，覆盖产品规划、代理研发、合作开发、工艺转移等全流程。</p>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="bg-white p-4 rounded shadow">
+                        <h5 class="text-primary mb-3">核心服务内容</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-check-circle text-primary mr-2"></i>
+                                    <span>产品规划与定位</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-check-circle text-primary mr-2"></i>
+                                    <span>代理研发与技术支持</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-check-circle text-primary mr-2"></i>
+                                    <span>产线规划设计</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="business-card h-100">
+                        <i class="fa fa-industry"></i>
+                        <h4>IDM代工及OEM定制</h4>
+                        <p>与国内外多个开放/半开放式FAB保持良好商务关系，具备≥28nm Foundry能力，拥有丰富产品定制经验。</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="business-card h-100">
+                        <i class="fa fa-graduation-cap"></i>
+                        <h4>联合人才培养</h4>
+                        <p>与西安电子科技大学等知名高校合作，开展国际人才培养服务，课程涵盖微电子学基础、宽禁带半导体器件等。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 交付流程模块 -->
+        <div id="delivery" class="module">
+            <h2 class="section-title">高效交付 · 价值共创</h2>
+            <p class="text-center text-muted mb-5">设备交付全流程9大核心环节，权责清晰、风险前置，确保项目顺利落地</p>
+            
+            <div class="bg-white p-5 rounded shadow">
+                <div class="process-step" data-step="1">
+                    <h5>客户工艺需求（用户方主导，设备方协同）</h5>
+                    <p>用户方提供完整工艺参数与场景要求，设备方技术人员澄清设备极限加工能力，形成《工艺需求确认书》。</p>
+                </div>
+                
+                <div class="process-step" data-step="2">
+                    <h5>协助设备选型（设备方主导，用户方参与）</h5>
+                    <p>基于客户需求解读，从性能、工艺、商务等维度论证选型方案，确定首选/备选设备型号。</p>
+                </div>
+                
+                <div class="process-step" data-step="3">
+                    <h5>商务谈判（双方商务+技术团队协同）</h5>
+                    <p>确定付款方式、交付周期、质保服务，明确延迟交付赔偿条款，保障双方权益。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 规划愿景模块 -->
+        <div id="vision" class="module">
+            <h2 class="section-title">规划愿景</h2>
+            <p class="text-center text-muted mb-5">科技与生活的完美融合</p>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div style="text-align: center; padding: 40px 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.05); margin-bottom: 30px;">
+                        <i class="fa fa-globe" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                        <h4>国际先进的半导体产业解决方案提供商</h4>
+                        <p>依托国际化资源网络与技术积累，为全球半导体企业提供全流程、定制化的解决方案。</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="text-align: center; padding: 40px 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.05); margin-bottom: 30px;">
+                        <i class="fa fa-bolt" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                        <h4>打破美欧垄断的核心设备材料供应商</h4>
+                        <p>聚焦核心设备与关键材料研发合作，推动国产化替代进程，打破国际技术壁垒。</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="text-align: center; padding: 40px 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.05); margin-bottom: 30px;">
+                        <i class="fa fa-rocket" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px;"></i>
+                        <h4>国内领先的半导体供应链服务商</h4>
+                        <p>整合上下游资源，构建高效、稳定的半导体供应链体系，助力国内产业升级。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 联系我们模块 -->
+        <div id="contact" class="module">
+            <h2 class="section-title">联系我们</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="bg-white p-5 rounded shadow h-100">
+                        <h3 class="text-primary mb-4">公司信息</h3>
+                        <div style="margin-bottom: 30px;">
+                            <i class="fa fa-map-marker" style="font-size: 1.5rem; color: var(--primary-color); margin-right: 15px;"></i>
+                            <h5 style="display: inline-block; vertical-align: middle; color: var(--secondary-color); font-weight: 600;">公司地址</h5>
+                            <p style="margin-left: 45px; color: #666;">陕西省西安市高新技术产业开发区西安电子科技大学国家大学科技园内</p>
+                        </div>
+                        <div style="margin-bottom: 30px;">
+                            <i class="fa fa-phone" style="font-size: 1.5rem; color: var(--primary-color); margin-right: 15px;"></i>
+                            <h5 style="display: inline-block; vertical-align: middle; color: var(--secondary-color); font-weight: 600;">联系电话</h5>
+                            <p style="margin-left: 45px; color: #666;">029-XXXXXXXX（业务咨询）</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-white p-5 rounded shadow h-100">
+                        <h3 class="text-primary mb-4">咨询合作</h3>
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">您的姓名</label>
+                                <input type="text" class="form-control" id="name" placeholder="请输入姓名">
+                            </div>
+                            <div class="mb-3">
+                                <label for="company" class="form-label">公司名称</label>
+                                <input type="text" class="form-control" id="company" placeholder="请输入公司名称">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">联系电话</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="请输入联系电话">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">提交咨询</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-logo">
+                        <i class="fa fa-microchip mr-2"></i>宏晟达国际科技
+                    </div>
+                    <p>宏晟达国际科技（西安）有限公司是一家国际化的科技贸易融合型企业，专注半导体全产业链服务。</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">快速链接</h5>
+                    <ul class="footer-links">
+                        <li><a href="javascript:loadModule('company-intro')"><i class="fa fa-angle-right mr-2"></i>公司简介</a></li>
+                        <li><a href="javascript:loadModule('semiconductor-bu')"><i class="fa fa-angle-right mr-2"></i>半导体BU</a></li>
+                        <li><a href="javascript:loadModule('business')"><i class="fa fa-angle-right mr-2"></i>主营业务</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">联系我们</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fa fa-map-marker mr-2"></i>陕西省西安市高新区西电国家大学科技园</a></li>
+                        <li><a href="tel:029XXXXXXXX"><i class="fa fa-phone mr-2"></i>029-XXXXXXXX</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 宏晟达国际科技（西安）有限公司 版权所有
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 模块加载函数
+        function loadModule(moduleId) {
+            // 隐藏所有模块
+            $('.module').removeClass('active');
+            // 显示目标模块
+            $('#' + moduleId).addClass('active');
+            // 更新导航状态
+            $('.nav-link').removeClass('active');
+            $('.nav-link[data-module="' + moduleId + '"]').addClass('active');
+            // 滚动到页面顶部
+            $('html, body').animate({ scrollTop: 0 }, 300);
+        }
+
+        // 导航点击事件
+        $(document).ready(function() {
+            $('.nav-link').click(function() {
+                var moduleId = $(this).data('module');
+                loadModule(moduleId);
+            });
+
+            // 表单提交处理
+            $('#contact-form').submit(function(e) {
+                e.preventDefault();
+                alert('咨询信息已提交，我们将尽快与您联系！');
+                $(this)[0].reset();
+            });
+
+            // 导航栏滚动效果
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('.navbar').addClass('shadow-lg');
+                } else {
+                    $('.navbar').removeClass('shadow-lg');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
